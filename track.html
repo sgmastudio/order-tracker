@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Поиск заказа</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawTable);
+
+      let dataTable, table;
+
+      function drawTable() {
+        const query = new google.visualization.Query(
+          'https://docs.google.com/spreadsheets/d/1bMHOjgac2tyVZadJjmX2bbclVjEHr5w7ots9kYGR8vg/gviz/tq?sheet=Лист1'
+        );
+        query.setQuery('SELECT *');
+        query.send(handleQueryResponse);
+      }
+
+      function handleQueryResponse(response) {
+        if (response.isError()) {
+          document.getElementById('result').innerHTML = 'Ошибка: ' + response.getMessage();
+          return;
+        }
+
+        dataTable = response.getDataTable();
+        table = new google.visualization.Table(document.getElementById('result'));
+        table.draw(dataTable, {showRowNumber: false, width: '100%'});
+      }
+
+      function filterTable() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = new google.visualization.DataTable();
+
+        // Копируем структуру таблицы
+        for (let i = 0; i < dataTable.getNumberOfColumns(); i++) {
+          filtered.addColumn(dataTable.getColumnType(i), dataTable.getColumnLabel(i));
+        }
+
+        for (let i = 0; i < dataTable.getNumberOfRows(); i++) {
+          const row = [];
+          let match = false;
+
+          for (let j = 0; j < dataTable.getNumberOfColumns(); j++) {
+            const value = dataTable.getValue(i, j);
+            row.push(value);
+            if (value && value.toString().toLowerCase().includes(input)) {
+              match = true;
+            }
+          }
+
+          if (match) {
+            filtered.addRow(row);
+          }
+        }
+
+        table.draw(filtered, {showRowNumber: false, width: '100%'});
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Отслеживание груза</h2>
+    <input id="searchInput" type="text" placeholder="Введите номер заказа или коносамента">
+    <button onclick="filterTable()">Найти</button>
+    <div id="result" style="margin-top: 20px;"></div>
+  </body>
+</html>
