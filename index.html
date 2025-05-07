@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Поиск по заказу</title>
+  <title>Поиск заказа</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,56 +11,59 @@
     input, button {
       padding: 10px;
       font-size: 16px;
-      margin-bottom: 10px;
     }
     table {
-      width: 100%;
-      border-collapse: collapse;
       margin-top: 20px;
+      border-collapse: collapse;
+      width: 100%;
     }
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #999;
       padding: 8px;
-      text-align: center;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-
-  <h2>Отслеживание груза</h2>
-  <input type="text" id="searchQuery" placeholder="Введите номер заказа или коносамента">
+  <h2>Поиск по номеру заказа или коносамента</h2>
+  <input type="text" id="queryInput" placeholder="Введите номер">
   <button onclick="searchOrder()">Поиск</button>
 
   <div id="result"></div>
 
   <script>
+    const SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec'; // вставь сюда свой URL
+
     async function searchOrder() {
-      const query = document.getElementById('searchQuery').value;
-      const url = 'https://script.google.com/macros/s/AKfycbwzcRRlQouobAss68jUANh2a3arKqDo1Twp6Jhp7Uvo7v8ncm_IPxSWO2NXnAIhsgpe/exec';
-      
-      const response = await fetch(`${url}?query=${encodeURIComponent(query)}`);
-      const result = await response.json();
+      const query = document.getElementById('queryInput').value.trim();
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = 'Поиск...';
 
-      const container = document.getElementById('result');
-      if (result === 'Не найдено') {
-        container.innerHTML = '<p>Данные не найдены.</p>';
-        return;
+      try {
+        const response = await fetch(`${SCRIPT_URL}?query=${encodeURIComponent(query)}`);
+        const json = await response.json();
+
+        if (json.data[0] === "Не найдено") {
+          resultDiv.innerHTML = '<p>Ничего не найдено</p>';
+          return;
+        }
+
+        let tableHTML = '<table><thead><tr>';
+        json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
+        tableHTML += '</tr></thead><tbody><tr>';
+        json.data.forEach(d => tableHTML += `<td>${d}</td>`);
+        tableHTML += '</tr></tbody></table>';
+
+        resultDiv.innerHTML = tableHTML;
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerHTML = '<p style="color:red;">Ошибка при получении данных</p>';
       }
-
-      const headers = [
-        "Номер заказа", "Номер коносамента", "Дата отгрузки из порта отправления",
-        "Дата прибытия в порт назначения", "Дата таможенного оформления",
-        "Дата отгрузки из порта прибытия", "Дата прибытия в пункт назначения", "Дислокация"
-      ];
-
-      let html = '<table><tr>';
-      headers.forEach(h => html += `<th>${h}</th>`);
-      html += '</tr><tr>';
-      result.forEach(item => html += `<td>${item}</td>`);
-      html += '</tr></table>';
-      container.innerHTML = html;
     }
   </script>
+</body>
+</html>
+
 
 </body>
 </html>
