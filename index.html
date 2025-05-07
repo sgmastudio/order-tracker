@@ -1,39 +1,113 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Поиск заказа</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
+      margin: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    input, button {
-      padding: 10px;
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 500px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    input {
+      padding: 12px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
     }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #99cc32;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 10px rgba(153, 204, 50, 0.5);
+    }
+
+    button:active {
+      background-color: #88b42d;
+      transform: scale(1);
+    }
+
     table {
       margin-top: 20px;
       border-collapse: collapse;
       width: 100%;
+      max-width: 600px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
     }
+
     th, td {
-      border: 1px solid #999;
-      padding: 8px;
+      border: 1px solid #ddd;
+      padding: 10px;
       text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    #result {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    @media (max-width: 600px) {
+      table, th, td {
+        font-size: 14px;
+      }
+
+      input, button {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
   <h2>Поиск по номеру заказа или коносамента</h2>
-  <input type="text" id="queryInput" placeholder="Введите номер">
-  <button onclick="searchOrder()">Поиск</button>
+
+  <div class="form-container">
+    <input type="text" id="queryInput" placeholder="Введите номер заказа или номер коносамента" />
+    <button onclick="searchOrder()">Поиск</button>
+  </div>
 
   <div id="result"></div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhrSqHiQVLSXedZ4d090mHB27t18T3d1ckWhlQuU9XhuhfG0jUntHcVqDhZ-gXuGfDXg/exec';
-
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXNsdIJOvN4kxGX-ExwV6mhZWXqkwWdKAUQG3rcsRDxtzLW5fRXpRQdU4DepPtw3NYXw/exec';
 
     async function searchOrder() {
       const query = document.getElementById('queryInput').value.trim();
@@ -45,7 +119,7 @@
         const json = await response.json();
 
         if (json.data[0] === "Не найдено") {
-          resultDiv.innerHTML = '<p>Ничего не найдено</p>';
+          resultDiv.innerHTML = '<p style="color: red;">Ничего не найдено</p>';
           return;
         }
 
