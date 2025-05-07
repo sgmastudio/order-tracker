@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Поиск по заказу</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Отслеживание груза</h2>
+  <input type="text" id="searchQuery" placeholder="Введите номер заказа или коносамента">
+  <button onclick="searchOrder()">Поиск</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function searchOrder() {
+      const query = document.getElementById('searchQuery').value;
+      const url = 'https://script.google.com/macros/s/AKfycbwzcRRlQouobAss68jUANh2a3arKqDo1Twp6Jhp7Uvo7v8ncm_IPxSWO2NXnAIhsgpe/exec';
+      
+      const response = await fetch(`${url}?query=${encodeURIComponent(query)}`);
+      const result = await response.json();
+
+      const container = document.getElementById('result');
+      if (result === 'Не найдено') {
+        container.innerHTML = '<p>Данные не найдены.</p>';
+        return;
+      }
+
+      const headers = [
+        "Номер заказа", "Номер коносамента", "Дата отгрузки из порта отправления",
+        "Дата прибытия в порт назначения", "Дата таможенного оформления",
+        "Дата отгрузки из порта прибытия", "Дата прибытия в пункт назначения", "Дислокация"
+      ];
+
+      let html = '<table><tr>';
+      headers.forEach(h => html += `<th>${h}</th>`);
+      html += '</tr><tr>';
+      result.forEach(item => html += `<td>${item}</td>`);
+      html += '</tr></table>';
+      container.innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
