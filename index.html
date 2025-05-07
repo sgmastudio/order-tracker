@@ -3,36 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <title>Поиск заказа</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
+      margin: 0;
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
-    input, button {
-      padding: 10px;
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
     }
-    table {
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #99cc32;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:active {
+      background-color: #7da628;
+      transform: scale(0.98);
+    }
+
+    #result {
       margin-top: 20px;
+      width: 100%;
+      max-width: 1000px;
+      overflow-x: auto;
+    }
+
+    table {
       border-collapse: collapse;
       width: 100%;
+      background-color: #fff;
     }
+
     th, td {
       border: 1px solid #999;
-      padding: 8px;
+      padding: 10px;
       text-align: left;
+    }
+
+    th {
+      background-color: #e2eec4;
+    }
+
+    @media (max-width: 500px) {
+      h2 {
+        font-size: 18px;
+      }
+
+      input, button {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 <body>
   <h2>Поиск по номеру заказа или коносамента</h2>
-  <input type="text" id="queryInput" placeholder="Введите номер">
-  <button onclick="searchOrder()">Поиск</button>
+  <div class="search-container">
+    <input type="text" id="queryInput" placeholder="Введите номер заказа или номер коносамента">
+    <button onclick="searchOrder()">Поиск</button>
+  </div>
 
   <div id="result"></div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1irL0QPAOb5YE1Xmu6gxWAnOwS9TLJ4PzeecsOZQXfgwZUlhusuMFyxCGd_C4Jbnu/exec'; // вставь сюда свой URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1irL0QPAOb5YE1Xmu6gxWAnOwS9TLJ4PzeecsOZQXfgwZUlhusuMFyxCGd_C4Jbnu/exec'; // ваш URL
 
     async function searchOrder() {
       const query = document.getElementById('queryInput').value.trim();
@@ -64,6 +137,3 @@
 </body>
 </html>
 
-
-</body>
-</html>
