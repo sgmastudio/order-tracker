@@ -2,102 +2,91 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Поиск заказа</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отследить груз</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      background-color: #f8f8f8;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
-    .search-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 400px;
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     input[type="text"] {
       width: 100%;
-      padding: 12px 15px;
+      padding: 12px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 6px;
       margin-bottom: 10px;
-      box-sizing: border-box;
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
       background-color: #99cc32;
       color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s ease-in-out;
     }
 
     button:hover {
       transform: scale(1.03);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     button:active {
-      background-color: #7da628;
+      background-color: #7fa62b;
       transform: scale(0.98);
     }
 
-    #result {
-      margin-top: 20px;
-      width: 100%;
-      max-width: 1000px;
-      overflow-x: auto;
-    }
-
     table {
+      margin: 30px auto 0;
       border-collapse: collapse;
       width: 100%;
-      background-color: #fff;
+      max-width: 1000px;
     }
 
     th, td {
       border: 1px solid #999;
-      padding: 10px;
+      padding: 8px;
       text-align: left;
     }
 
     th {
-      background-color: #e2eec4;
+      background-color: #e8f4c9;
     }
 
-    @media (max-width: 500px) {
-      h2 {
-        font-size: 18px;
-      }
-
-      input, button {
-        font-size: 15px;
-      }
+    #result p {
+      text-align: center;
+      margin-top: 20px;
+      color: red;
     }
   </style>
 </head>
 <body>
   <h2>Поиск по номеру заказа или коносамента</h2>
-  <div class="search-container">
+
+  <div class="form-container">
     <input type="text" id="queryInput" placeholder="Введите номер заказа или номер коносамента">
     <button onclick="searchOrder()">Поиск</button>
   </div>
@@ -105,7 +94,7 @@
   <div id="result"></div>
 
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1irL0QPAOb5YE1Xmu6gxWAnOwS9TLJ4PzeecsOZQXfgwZUlhusuMFyxCGd_C4Jbnu/exec'; // ваш URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1irL0QPAOb5YE1Xmu6gxWAnOwS9TLJ4PzeecsOZQXfgwZUlhusuMFyxCGd_C4Jbnu/exec';
 
     async function searchOrder() {
       const query = document.getElementById('queryInput').value.trim();
@@ -130,7 +119,7 @@
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
         console.error(err);
-        resultDiv.innerHTML = '<p style="color:red;">Ошибка при получении данных</p>';
+        resultDiv.innerHTML = '<p>Ошибка при получении данных</p>';
       }
     }
   </script>
