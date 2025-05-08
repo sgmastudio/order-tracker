@@ -2,98 +2,73 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Поиск заказа</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отследить груз</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff !important;
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
-    .search-container {
-      background-color: #f5f5f5;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-      max-width: 600px;
-      width: 100%;
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
       text-align: center;
     }
 
     input[type="text"] {
+      width: 100%;
       padding: 12px;
-      width: 80%;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 6px;
       margin-bottom: 10px;
-      box-sizing: border-box;
-    }
-
-    .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 140px;
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px;
-      position: absolute;
-      z-index: 1;
-      bottom: 125%; /* над кнопкой */
-      left: 50%;
-      margin-left: -70px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
     }
 
     button {
-      background-color: #99cc32 !important;
-      color: #fff !important;
-      padding: 12px 24px !important;
-      font-size: 18px !important;
+      background-color: #99cc32;
+      color: #fff;
+      padding: 12px 24px;
+      font-size: 18px;
       font-weight: 500;
-      border: none !important;
-      border-radius: 8px !important;
-      cursor: pointer !important;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
       transition: all 0.2s ease-in-out;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
+    
     button:hover {
       filter: brightness(1.05);
       transform: scale(1.03);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      aria-label="Отследить груз"
     }
-
+    
     button:active {
-      background-color: #7fa62b !important;
+      background-color: #7fa62b;
       transform: scale(0.98);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     }
 
     table {
-      margin-top: 20px;
+      margin: 30px auto 0;
       border-collapse: collapse;
       width: 100%;
+      max-width: 1000px;
     }
 
     th, td {
@@ -102,27 +77,26 @@
       text-align: left;
     }
 
-    @media (max-width: 600px) {
-      input[type="text"] {
-        width: 100%;
-      }
+    th {
+      background-color: #e8f4c9;
+    }
+
+    #result p {
+      text-align: center;
+      margin-top: 20px;
+      color: red;
     }
   </style>
 </head>
 <body>
-  <h2>Отследить груз</h2>
+  <h2>Поиск по номеру заказа или коносамента</h2>
 
-  <div class="search-container">
-    <p><strong>Поиск по номеру заказа или коносамента</strong></p>
+  <div class="form-container">
     <input type="text" id="queryInput" placeholder="Введите номер заказа или номер коносамента">
-
-    <div class="tooltip">
-      <button onclick="searchOrder()">Поиск</button>
-      <span class="tooltiptext">Отследить груз</span>
-    </div>
-
-    <div id="result"></div>
+    <button onclick="searchOrder()">Поиск</button>
   </div>
+
+  <div id="result"></div>
 
   <script>
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1irL0QPAOb5YE1Xmu6gxWAnOwS9TLJ4PzeecsOZQXfgwZUlhusuMFyxCGd_C4Jbnu/exec';
@@ -150,7 +124,7 @@
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
         console.error(err);
-        resultDiv.innerHTML = '<p style="color:red;">Ошибка при получении данных</p>';
+        resultDiv.innerHTML = '<p>Ошибка при получении данных</p>';
       }
     }
   </script>
