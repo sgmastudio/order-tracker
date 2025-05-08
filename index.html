@@ -41,22 +41,26 @@
     button {
       background-color: #99cc32;
       color: #fff;
-      padding: 12px 20px;
-      font-size: 16px;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: 500;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
-
+    
     button:hover {
+      filter: brightness(1.05);
       transform: scale(1.03);
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
-
+    
     button:active {
       background-color: #7fa62b;
       transform: scale(0.98);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
     }
 
     table {
