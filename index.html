@@ -1,4 +1,4 @@
-2<!DOCTYPE html>
+3<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -139,27 +139,27 @@
   }
 
   tr {
-    display: block;
+    display: flex;
     margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
   }
 
   td {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    display: block;
+    width: 50%;
     box-sizing: border-box;
     padding: 8px;
     border: 1px solid #999;
-    background-color: #e8f4c9; /* Цвет ячеек заголовков */
   }
 
-  td:before {
-    content: attr(data-label);
-    font-weight: bold;
-    padding-right: 10px;
+  td:first-child {
     background-color: #e8f4c9; /* Цвет ячеек заголовков */
+    font-weight: bold;
+  }
+
+  td:last-child {
+    background-color: #ffffff; /* Белый фон для ответов */
   }
 
   tr:last-child td {
