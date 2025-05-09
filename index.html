@@ -138,28 +138,34 @@
         display: none;
       }
 
+      tbody {
+        display: block;
+      }
+
       tr {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #999;
         padding-bottom: 10px;
       }
 
       td {
-        display: flex;
-        justify-content: space-between;
+        display: block;
         width: 100%;
         box-sizing: border-box;
         padding: 8px;
-        border: none;
-        border-bottom: 1px solid #999;
+        border: 1px solid #999;
       }
 
       td:before {
         content: attr(data-label);
         font-weight: bold;
-        padding-right: 10px;
+        display: inline-block;
+        width: 100%;
+        background-color: #e8f4c9;
+        padding: 8px;
+        border-bottom: 1px solid #999;
       }
 
       tr:last-child td {
