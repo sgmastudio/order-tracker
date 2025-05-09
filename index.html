@@ -89,6 +89,7 @@
     @media (max-width: 600px) {
       table {
         display: block;
+        overflow-x: auto;
       }
 
       thead {
@@ -150,15 +151,9 @@
 
         let tableHTML = '<table><thead><tr>';
         json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
-        tableHTML += '</tr></thead><tbody>';
-        
-        json.data.forEach(row => {
-          tableHTML += '<tr>';
-          row.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
-          tableHTML += '</tr>';
-        });
-        
-        tableHTML += '</tbody></table>';
+        tableHTML += '</tr></thead><tbody><tr>';
+        json.data.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
+        tableHTML += '</tr></tbody></table>';
 
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
