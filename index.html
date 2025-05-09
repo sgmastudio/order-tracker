@@ -151,11 +151,13 @@
         let tableHTML = '<table><thead><tr>';
         json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
         tableHTML += '</tr></thead><tbody>';
+        
         json.data.forEach(row => {
           tableHTML += '<tr>';
           row.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
           tableHTML += '</tr>';
         });
+        
         tableHTML += '</tbody></table>';
 
         resultDiv.innerHTML = tableHTML;
