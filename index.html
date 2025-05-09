@@ -68,8 +68,6 @@
       border-collapse: collapse;
       width: 100%;
       max-width: 1000px;
-      overflow-x: auto;
-      display: block;
     }
 
     th, td {
@@ -89,22 +87,36 @@
     }
 
     @media (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
+      table {
         display: block;
       }
 
-      th, td {
-        width: 100%;
-        box-sizing: border-box;
+      thead {
+        display: none;
       }
 
       tr {
+        display: flex;
+        flex-wrap: wrap;
         margin-bottom: 10px;
+        border-bottom: 1px solid # ccc;
+        padding-bottom: 10px;
       }
 
-      th {
-        background-color: # e8f4c9;
+      td {
+        display: flex;
+        width: 50%;
+        box-sizing: border-box;
+        padding: 8px;
+        border: none;
+        border-bottom: 1px solid # 999;
+      }
+
+      td:before {
+        content: attr(data-label);
+        flex: 1;
         font-weight: bold;
+        padding-right: 10px;
       }
     }
   </style>
@@ -138,9 +150,13 @@
 
         let tableHTML = '<table><thead><tr>';
         json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
-        tableHTML += '</tr></thead><tbody><tr>';
-        json.data.forEach(d => tableHTML += `<td>${d}</td>`);
-        tableHTML += '</tr></tbody></table>';
+        tableHTML += '</tr></thead><tbody>';
+        json.data.forEach(row => {
+          tableHTML += '<tr>';
+          row.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
+          tableHTML += '</tr>';
+        });
+        tableHTML += '</tbody></table>';
 
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
