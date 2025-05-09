@@ -1,4 +1,4 @@
-6<!DOCTYPE html>
+7<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -88,7 +88,7 @@
       color: red;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
   table, thead, tbody, th, td, tr {
     display: block;
     width: 100%;
@@ -99,53 +99,36 @@
   }
 
   tr {
-    margin-bottom: 15px;
+    margin-bottom: 16px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 10px;
     background-color: #f9f9f9;
   }
 
   td {
     position: relative;
-    padding-left: 50%;
+    padding: 10px 10px 10px 50%;
     text-align: left;
     border: none;
     border-bottom: 1px solid #eee;
+    font-size: 15px;
+    word-break: break-word;
+    white-space: normal;
+    line-height: 1.4;
   }
 
   td::before {
     content: attr(data-label);
     position: absolute;
     left: 10px;
-    top: 8px;
+    top: 10px;
+    width: 45%;
     font-weight: bold;
-    white-space: nowrap;
-  }
-}
-	@media (max-width: 1024px) and (min-width: 601px) {
-  body {
-    padding: 15px;
-  }
-
-  h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
-  }
-
-  button {
-    width: 100%;
-    font-size: 16px;
-    padding: 10px 20px;
-  }
-
-  input[type="text"] {
-    font-size: 15px;
-    padding: 10px;
-  }
-
-  table {
     font-size: 14px;
+    white-space: normal;
+    word-break: break-word;
+    color: #333;
   }
 }
   </style>
