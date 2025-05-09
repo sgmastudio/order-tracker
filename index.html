@@ -1,3 +1,5 @@
++mobile
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -95,6 +97,32 @@
         border: none;
       }
 
+     @media (min-width: 601px) and (max-width: 1024px) {
+      table {
+        width: 100%;
+        border: 1px solid #999;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody, tr {
+        display: table-row;
+      }
+
+      td {
+        display: table-cell;
+        padding: 8px;
+        border: 1px solid #999;
+      }
+
+      td:first-child {
+        font-weight: bold;
+        background-color: #e8f4c9;
+      }
+    }
+
       thead {
         display: none;
       }
@@ -124,32 +152,6 @@
 
       tr:last-child td {
         border-bottom: none;
-      }
-    }
-
-    @media (min-width: 601px) and (max-width: 1024px) {
-      table {
-        width: 100%;
-        border: 1px solid #999;
-      }
-
-      thead {
-        display: none;
-      }
-
-      tbody, tr {
-        display: table-row;
-      }
-
-      td {
-        display: table-cell;
-        padding: 8px;
-        border: 1px solid #999;
-      }
-
-      td:first-child {
-        font-weight: bold;
-        background-color: #e8f4c9;
       }
     }
   </style>
@@ -183,11 +185,9 @@
 
         let tableHTML = '<table><thead><tr>';
         json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
-        tableHTML += '</tr></thead><tbody>';
-        json.headers.forEach((header, index) => {
-          tableHTML += `<tr><td>${header}</td><td>${json.data[index]}</td></tr>`;
-        });
-        tableHTML += '</tbody></table>';
+        tableHTML += '</tr></thead><tbody><tr>';
+        json.data.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
+        tableHTML += '</tr></tbody></table>';
 
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
