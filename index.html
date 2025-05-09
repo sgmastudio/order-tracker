@@ -40,7 +40,7 @@
 
     button {
       background-color: #99cc32;
-      color: #fff;
+      color: # fff;
       padding: 12px 24px;
       font-size: 18px;
       font-weight: 500;
@@ -69,7 +69,7 @@
       border-collapse: collapse;
       width: 100%;
       max-width: 1000px;
-      border: 1px solid #999;
+      border: 1px solid # 999;
     }
 
     th, td {
@@ -129,17 +129,41 @@
 
     @media (min-width: 601px) and (max-width: 1024px) {
       table {
+        display: block;
+        overflow-x: auto;
+        border: 1px solid #999;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+      }
+
+      td {
+        display: flex;
+        justify-content: space-between;
         width: 100%;
-        border: 1px solid #ccc;
+        box-sizing: border-box;
+        padding: 8px;
+        border: none;
+        border-bottom: 1px solid #999;
       }
 
-      th, td {
-        padding: 12px;
-        font-size: 14px;
+      td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        padding-right: 10px;
       }
 
-      th {
-        background-color: #d4e8b2;
+      tr:last-child td {
+        border-bottom: none;
       }
     }
   </style>
