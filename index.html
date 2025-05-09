@@ -129,7 +129,6 @@
 
     @media (min-width: 601px) and (max-width: 1024px) {
       table {
-        display: table;
         width: 100%;
         border: 1px solid #999;
       }
@@ -182,7 +181,9 @@
           return;
         }
 
-        let tableHTML = '<table><tbody>';
+        let tableHTML = '<table><thead><tr>';
+        json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
+        tableHTML += '</tr></thead><tbody>';
         json.headers.forEach((header, index) => {
           tableHTML += `<tr><td>${header}</td><td>${json.data[index]}</td></tr>`;
         });
