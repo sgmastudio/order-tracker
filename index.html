@@ -1,3 +1,5 @@
++mobile
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -94,45 +96,7 @@
         overflow-x: auto;
         border: none;
       }
-
-      thead {
-        display: none;
-      }
-
-      tr {
-        display: block;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 10px;
-      }
-
-      td {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        box-sizing: border-box;
-        padding: 8px;
-        border: none;
-        border-bottom: 1px solid #999;
-      }
-
-      td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        padding-right: 10px;
-      }
-
-      tr:last-child td {
-        border-bottom: none;
-      }
-    }
-
-    @media (min-width: 601px) and (max-width: 1024px) {
-      table {
-        display: block;
-        width: 100%;
-        border: none;
-      }
+	
 
       thead {
         display: none;
@@ -196,11 +160,9 @@
 
         let tableHTML = '<table><thead><tr>';
         json.headers.forEach(h => tableHTML += `<th>${h}</th>`);
-        tableHTML += '</tr></thead><tbody>';
-        json.data.forEach((d, index) => {
-          tableHTML += `<tr><td data-label="${json.headers[index]}">${json.headers[index]}</td><td>${d}</td></tr>`;
-        });
-        tableHTML += '</tbody></table>';
+        tableHTML += '</tr></thead><tbody><tr>';
+        json.data.forEach((d, index) => tableHTML += `<td data-label="${json.headers[index]}">${d}</td>`);
+        tableHTML += '</tr></tbody></table>';
 
         resultDiv.innerHTML = tableHTML;
       } catch (err) {
